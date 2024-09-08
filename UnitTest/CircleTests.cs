@@ -7,13 +7,13 @@ namespace UnitTest
     {
 
         [TestMethod]
-        [DataRow("Круг", 5, 78.5)]
-        [DataRow("Круг", 10, 314)]
-        [DataRow("Круг", 15, 706.5)]
-        public void CalculateSquare_CorrectRadius_ReturnsValue(string typeName, double radius, double result)
+        [DataRow( 5, 78.5)]
+        [DataRow( 10, 314)]
+        [DataRow( 15, 706.5)]
+        public void CalculateSquare_CorrectRadius_ReturnsValue( double radius, double result)
         {
             //Arrange
-            var circle = new Circle(typeName, radius);
+            var circle = new Circle("Круг", radius);
 
             //Act
             var act = circle.CalculateSquare();
@@ -21,6 +21,18 @@ namespace UnitTest
             //Assert
             Assert.AreEqual(result, act);
         }
-        //некорректные данные в конструктор
+
+
+        [ExpectedException(typeof(ArgumentException))]
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-5)]
+        [DataRow(-10)]
+        public void Constructor_IncorrectRadius_Exception(double radius)
+        {
+            var circle = new Circle("Круг", radius);
+
+            Assert.Inconclusive("Некорректный радиус");
+        }
     }
 }
